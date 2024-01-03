@@ -5,7 +5,21 @@ import pandas as pd
 
 st.header("Binomial Distribution of Coin Flips")
 
-sequence_length = st.number_input("Total number of flips in a sequence", min_value=1, value=10)
+st.write("The Binomial Distribution Formula is used to calculate the probability that a certain number of successes will occur given a sequence of events that have only two possible outcomes.")
+
+with st.container(border=True):
+	st.write("Binomial Distribution Formula = $$$ P(x) = \\frac{n!}{(n-k)!k!}*p^k(1-p)^{n-k} $$$")
+	st.write("$$$ k $$$ = Number of desired successes (heads) within a sequence")
+	st.write("$$$ n $$$ = Total number of events in a sequence")
+	st.write("$$$ p $$$ = Probability of getting the desired event (heads) ONCE")
+
+st.write("The simplest situation this could be applied to is for coin flips. There are only two possible outcomes: heads or tails. If you consider heads to be a success, then the Binomial Distribution Formula can be used to calculate the probability of getting $$$ k $$$ number of successes (heads) in a sequence of coin flips.")
+
+st.write("The Binomial Distribution Formula is flexible enough to work with events that don't have an equal probability. For example, if you have a weighted coin, it means that the probability of getting heads is not 50%. You simply have to adjust the value $$$ p $$$ to match the probability of getting heads.")
+
+st.divider()
+
+sequence_length = st.number_input("Total number of events in a sequence", min_value=1, value=10)
 probability_heads = st.number_input("Probability of heads (is this a weighted coin?)", min_value=0.0, max_value=1.0, value=0.5)
 number_sequences = st.number_input("Number of sequences you want", min_value=1, value=1000)
 st.divider()
@@ -71,10 +85,10 @@ st.dataframe(df, use_container_width=True, hide_index=True)
 st.subheader("Calculate the probability of getting a certain number of heads")
 st.write("$$$ P(x) = \\frac{n!}{(n-k)!k!}*p^k(1-p)^{n-k} $$$ = Binomial Distribution Formula")
 k = st.number_input("Number of heads you want", min_value=0, max_value=sequence_length, value=5)
-st.write("$$$ k $$$ = %d = Number of desired events within a sequence" % k)
+st.write("$$$ k $$$ = %d = Number of desired successes (heads) within a sequence" % k)
 st.write("$$$ n $$$ = %d = Total number of events in a sequence" % sequence_length)
-st.write("$$$ p $$$ = %f = Probability of getting the desired event ONCE" % probability_heads)
+st.write("$$$ p $$$ = %f = Probability of getting the desired event (heads) ONCE" % probability_heads)
 st.write('$$$ P(x) $$$ = Probability of getting the desired number of heads in a single sequence')
 st.write("$$$ P(x) = \\frac{%d!}{(%d-%d)!%d!}*%f^%d(1-%f)^{%d-%d} $$$" % (sequence_length, sequence_length, k, k, probability_heads, k, probability_heads, sequence_length, k))
 desired_probability = (np.math.factorial(sequence_length) / (np.math.factorial(sequence_length-k) * np.math.factorial(k))) * (probability_heads**k) * ((1-probability_heads)**(sequence_length-k))
-st.write("$$$ P(x) = %f $$$ = The probability of getting your desired number of heads in a single sequence" % desired_probability)
+st.write("$$$ P(x) = %f $$$ = The probability of getting your desired number of successes (heads) in a single sequence" % desired_probability)

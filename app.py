@@ -5,6 +5,8 @@ import pandas as pd
 
 st.header("Binomial Distribution of Coin Flips")
 
+st.write("[![Created by Freddy Ouellette](https://img.shields.io/badge/Created%20by%20Freddy%20Ouellette-blue)](https://freddyouellette.com) [![GitHub](https://img.shields.io/badge/GitHub-black?logo=github)](https://github.com/freddyouellette/binomial-distribution)")
+
 st.write("The Binomial Distribution Formula is used to calculate the probability that a certain number of successes will occur given a sequence of events that have only two possible outcomes.")
 
 with st.expander(label="Binomial Distribution Formula"):

@@ -1,4 +1,5 @@
 # Learn about Binomial Distributions!
+[![Created by Freddy Ouellette](https://img.shields.io/badge/Created%20by%20Freddy%20Ouellette-gray)](https://freddyouellette.com) [![GitHub](https://img.shields.io/badge/GitHub-black?logo=github)](https://github.com/freddyouellette/binomial-distribution)
 
 [![Try it here!](https://img.shields.io/badge/Try%20it%20now!-blue?style=for-the-badge&logo=streamlit)](https://binomial-distribution.streamlit.app)
 

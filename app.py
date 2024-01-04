@@ -7,8 +7,8 @@ st.header("Binomial Distribution of Coin Flips")
 
 st.write("The Binomial Distribution Formula is used to calculate the probability that a certain number of successes will occur given a sequence of events that have only two possible outcomes.")
 
-with st.container(border=True):
-	st.write("Binomial Distribution Formula = $$$ P(x) = \\frac{n!}{(n-k)!k!}*p^k(1-p)^{n-k} $$$")
+with st.expander(label="Binomial Distribution Formula"):
+	st.write("$$$ P(x) = \\frac{n!}{(n-k)!k!}*p^k(1-p)^{n-k} $$$")
 	st.write("$$$ k $$$ = Number of desired successes (heads) within a sequence")
 	st.write("$$$ n $$$ = Total number of events in a sequence")
 	st.write("$$$ p $$$ = Probability of getting the desired event (heads) ONCE")
@@ -21,22 +21,26 @@ st.divider()
 
 sequence_length = st.number_input("Total number of events in a sequence", min_value=1, value=10)
 probability_heads = st.number_input("Probability of heads (is this a weighted coin?)", min_value=0.0, max_value=1.0, value=0.5)
-number_sequences = st.number_input("Number of sequences you want", min_value=1, value=1000)
+number_sequences = st.number_input("Number of sequences you want to graph", min_value=1, value=1000)
 st.divider()
 
 st.subheader("Graphing the number of heads per sequence")
 
-st.write("$$$ f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{1}{2}(\\frac{x-\mu}{\sigma})^2} $$$ = Normal Distribution Formula")
-st.write("$$$ n $$$ = %d = Total number of events in a sequence" % sequence_length)
-st.write("$$$ p $$$ = %f = Probability of getting the desired event ONCE" % probability_heads)
-st.write("$$$ \mu $$$ = Mean")
-st.write("$$$ \sigma $$$ = Standard Deviation")
-st.write("$$$ \sigma^2 $$$ = Variance")
-st.write("$$$ \sigma = n * p * (1 - p) $$$")
-st.write("$$$ \mu = n * p $$$")
-st.write("$$$ \sigma = %d * %f * (1 - %f) = %f $$$" % (sequence_length, probability_heads, probability_heads, sequence_length * probability_heads * (1 - probability_heads)))
-st.write("$$$ \mu = %d * %f = %f $$$" % (sequence_length, probability_heads, sequence_length * probability_heads))
-st.write("$$$ f(x) = \\frac{1}{%f\\sqrt{2\\pi}}e^{-\\frac{1}{2}(\\frac{x-%f}{%f})^2} $$$" % (sequence_length * probability_heads * (1 - probability_heads), sequence_length * probability_heads, sequence_length * probability_heads * (1 - probability_heads)))
+st.write("The below graph is a distribution histogram of how many heads you would get in a single sequence of %d coin flips, if you repeated the experiment %d times, and with a coin that has a %f probability of landing on heads. You can change the variables above to see how it affects the shape of the data." % (sequence_length, number_sequences, probability_heads))
+
+st.write("The red line shows the Normal Distribution of this data, which is what you would expect to see if you were to repeat this experiment an infinite number of times. To calculate this line, you use the Normal Distribution Formula, which has one single unknown variable $$$ x $$$.")
+
+with st.expander("Normal Distribution Formula"):
+	st.write("$$$ f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{1}{2}(\\frac{x-\mu}{\sigma})^2} $$$")
+	st.write("$$$ n $$$ = Total number of events in a sequence (%d)" % sequence_length)
+	st.write("$$$ p $$$ = Probability of getting the desired event ONCE (%f)" % probability_heads)
+	st.write("$$$ \mu $$$ = Mean")
+	st.write("$$$ \mu = n * p $$$")
+	st.write("$$$ \sigma $$$ = Standard Deviation")
+	st.write("$$$ \sigma = n * p * (1 - p) $$$")
+	st.write("$$$ \sigma = %d * %f * (1 - %f) = %f $$$" % (sequence_length, probability_heads, probability_heads, sequence_length * probability_heads * (1 - probability_heads)))
+	st.write("$$$ \mu = %d * %f = %f $$$" % (sequence_length, probability_heads, sequence_length * probability_heads))
+	st.write("$$$ f(x) = \\frac{1}{%f\\sqrt{2\\pi}}e^{-\\frac{1}{2}(\\frac{x-%f}{%f})^2} $$$" % (sequence_length * probability_heads * (1 - probability_heads), sequence_length * probability_heads, sequence_length * probability_heads * (1 - probability_heads)))
 
 mean = sequence_length * probability_heads
 variance = sequence_length * probability_heads * (1 - probability_heads)
@@ -83,14 +87,18 @@ df = pd.DataFrame([
 st.dataframe(df, use_container_width=True, hide_index=True)
 
 st.subheader("Calculate the probability of getting a certain number of heads")
+
 k = st.number_input("Number of heads you want", min_value=0, max_value=sequence_length, value=5)
 
-with st.container(border=True):
-	st.write("Binomial Distribution Formula = $$$ P(x) = \\frac{n!}{(n-k)!k!}*p^k(1-p)^{n-k} $$$")
+st.write("Finally, we can use the Binomial Distribution Formula to calculate the probability of flipping a coin %d times only ONCE, and getting %d heads, if the coin has a %f probability of landing on heads. Note that this formula only works for \"Boolean\" events, meaning that the event only has two outcomes. For events with more possible outcomes, you will have to use a different formula, like the Multinomial Distribution Formula." % (sequence_length, k, probability_heads))
+
+with st.expander(label="Binomial Distribution Formula in Practice"):
+	st.write("$$$ P(x) = \\frac{n!}{(n-k)!k!}*p^k(1-p)^{n-k} $$$")
 	st.write("$$$ k $$$ = Number of desired successes (heads) within a sequence (%d)" % k)
 	st.write("$$$ n $$$ = Total number of events in a sequence (%d)" % sequence_length)
 	st.write("$$$ p $$$ = Probability of getting the desired event (heads) ONCE (%f)" % probability_heads)
 	st.write("$$$ P(x) = \\frac{n!}{(n-k)!k!}*p^k(1-p)^{n-k} $$$")
 	st.write("$$$ P(x) = \\frac{%d!}{(%d-%d)!%d!}*%f^%d(1-%f)^{%d-%d} $$$" % (sequence_length, sequence_length, k, k, probability_heads, k, probability_heads, sequence_length, k))
 	desired_probability = (np.math.factorial(sequence_length) / (np.math.factorial(sequence_length-k) * np.math.factorial(k))) * (probability_heads**k) * ((1-probability_heads)**(sequence_length-k))
+
 st.write("**The probability of getting %d successes (heads) in a single sequence is %f.**" % (k, desired_probability))
